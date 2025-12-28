@@ -11,6 +11,7 @@
             --accent-color: #3498db;
             --success-color: #27ae60;
             --error-color: #c0392b;
+            --warning-color: #f39c12; /* 新增警告色用于作弊按钮 */
             --bg-color: #f5f6fa;
             --card-bg: #ffffff;
             --text-gray: #6b7280;
@@ -212,6 +213,9 @@
         .btn-next { flex: 1; border-color: var(--accent-color); color: var(--accent-color); }
         .btn-next:hover { background-color: var(--accent-color); color: white; }
 
+        .btn-cheat { flex: 1; border-color: var(--warning-color); color: var(--warning-color); }
+        .btn-cheat:hover { background-color: var(--warning-color); color: white; }
+
         /* --- 结果展示 --- */
         .result-area {
             margin-top: 20px;
@@ -324,6 +328,7 @@
         
         <div class="action-area">
             <button class="btn-prev" onclick="changeQuestion(-1)">上一题</button>
+            <button class="btn-cheat" onclick="autoFillAnswer()">一键作弊</button>
             <button class="btn-submit" id="btn-submit" onclick="checkAnswer()">提交验证</button>
             <button class="btn-next" id="btn-next" onclick="changeQuestion(1)">下一题</button>
         </div>
@@ -590,6 +595,11 @@ const rawData = [
         const maxLength = Math.max(clean1.length, clean2.length);
         if (maxLength === 0) return 0;
         return Math.floor((matchCount / maxLength) * 100);
+    }
+
+    function autoFillAnswer() {
+        const currentQ = getCurrentQuestion();
+        document.getElementById('user-input').value = currentQ.a;
     }
 
     function checkAnswer() {
